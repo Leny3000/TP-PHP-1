@@ -1,101 +1,59 @@
 <?php
 
-$bdd = "mysql:host=$host;dbname=$dbname;charset=$charset";
+$host = "localhost" ;
+$dbname = "Solo Leveling" ;
+$username = "root" ;
+$password = "" ;
+$charset = "utf8mb4" ;
 
-// Options pour PDO
+$dsn = "mysql:host= $host ;dbname= $dbname ;charset= $charset " ;
+
 $options = [
-     // Gestion des erreurs avec exceptions
-    // Mode de récupération par défaut: tableau associatif
-    // Désactiver l'émulation des requêtes préparées
+   PDO ::ATTR_ERRMODE => PDO ::ERRMODE_EXCEPTION,
+   PDO ::ATTR_DEFAULT_FETCH_MODE => PDO ::FETCH_ASSOC,
+   PDO ::ATTR_EMULATE_PREPARES => false
 ];
 
-    $host= $_POST['Localhost'];
-    $dbname = $_POST['Solo Leveling'];
-    $charset = $_POST['utf8'];
-    $username = $_POST['Nom'];
-    $password = $_POST['Mot de passe'];
-    $age = $_POST['Âge'];
-
 try {
-    // Création de l'instance PDO
-    $pdo = new PDO($bdd, $username, $password, $options);
-    
-    // À ce stade, la connexion est établie
-    echo "Connexion à la base de données réussie !<br><br>";
-} catch (Exception $e) {
-    die('Erreur :' . $e->getMessage());
+   $pdo = new PDO ( $dsn , $username , $password , $options );
+   echo "Connexion à la base de données réussie ! </br></br>" ;
+
+   print ( "EXERCICE 1</br></br>" );
+   // Réinsertion de l'âge dans l'insertion
+   $sql = " INSERT INTO users (nom, age) VALUES (?, ?) " ;
+   $stmt = $pdo -> préparer ( $sql );
+   $stmt -> execute ([ "Dupré" , 35 ]);
+
+   echo "Nouvel utilisateur inséré avec l'ID : " . $pdo -> lastInsertId () . "</br></br>" ;
+
+   print ( "EXERCICE 2</br></br>" );
+   echo "Utilisateurs de plus de 30 ans :</br>" ;
+
+   $sql = " SÉLECTIONNER * DE utilisateurs OÙ âge > 30 " ;
+   $stmt = $pdo -> requête ( $sql );
+   $utilisateurs = $stmt -> fetchAll ();
+
+   foreach ( $users as $user ) {
+       echo "Nom : " . $user [ 'nom' ] . " | Âge : " . $user [ 'âge' ] . "</br>" ;
 }
 
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+   echo "</br>" ;
+
+   print ( "EXERCICE 3</br></br>" );
+   // Mise à jour de l'âge de l'utilisateur
+   $sql = " UPDATE utilisateurs SET age = ? WHERE id = ? " ;
+   $stmt = $pdo -> préparer ( $sql );
+   $stmt -> exécuter ([ 40 , 1 ]);
+
+   echo "Nombre d'utilisateurs mis à jour : " . $stmt -> rowCount () . "</br></br>" ;
+
+   print ( "EXERCICE 4</br></br>" );
+   $sql = " SUPPRIMER FROM utilisateurs OÙ id = ? " ;
+   $stmt = $pdo -> préparer ( $sql );
+   $stmt -> exécuter ([ 1 ]);
+
+   echo "Nombre d'utilisateurs supprimés : " . $stmt -> rowCount () . "</br></br>" ;
+
+} catch ( PDOException $e ) {
+   echo "Erreur de connexion à la base de données : " . $e -> getMessage ();
 }
-
-// Exercice 1 : Insertion de données
-  
-  $sql = "INSERT INTO users (firstname, lastname, email)
-VALUES ('John', 'Doe', 'john@example.com')";
-
-if ($conn->query($sql) === TRUE) {
-  echo "New record created successfully";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
-$conn->close();
-
-
-echo "Nouvel utilisateur inséré avec l'ID: " . $pdo->lastInsertId() . "<br>";
-
-
-// Exercice 2 : Sélection de données
-
-$sql = "SELECT id, firstname, lastname FROM users";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-    echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
-  }
-} else {
-  echo "0 results";
-}
-$conn->close();
-
-echo "Utilisateurs de plus de 30 ans:<br>";
-// Utiliser la boucle foreach
-
-
-
-
-
-// Exercice 3 : Mise à jour de données
-$sql = "UPDATE users SET lastname='Doe' WHERE id=2";
-
-if ($conn->query($sql) === TRUE) {
-  echo "Record updated successfully";
-} else {
-  echo "Error updating record: " . $conn->error;
-}
-
-$conn->close();
-    
-echo "Nombre d'utilisateurs mis à jour: " . $stmt->rowCount() . "<br>";
-
-
-// Exercice 4 : Suppression de données
-
-$sql = "DELETE FROM MyGuests WHERE id=3";
-
-if ($conn->query($sql) === TRUE) {
-  echo "Record deleted successfully";
-} else {
-  echo "Error deleting record: " . $conn->error;
-}
-
-$conn->close();
-
-echo "Nombre d'utilisateurs supprimés: " . $stmt->rowCount() . "<br>";
-    
-// En cas d'erreur, affichage du message
-echo "Erreur de connexion à la base de données: " . $e->getMessage() . "<br>";
