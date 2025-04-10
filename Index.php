@@ -29,9 +29,9 @@ try {
    print ( "EXERCICE 2</br></br>" );
    echo "Utilisateurs de plus de 30 ans :</br>" ;
 
-   $sql = " SÉLECTIONNER * DE utilisateurs OÙ âge > 30 " ;
+   $sql = " SELECT * DE utilisateurs WHERE âge > 30 " ;
    $stmt = $pdo -> requête ( $sql );
-   $utilisateurs = $stmt -> fetchAll ();
+   $users = $stmt -> fetchAll ();
 
    foreach ( $users as $user ) {
        echo "Nom : " . $user [ 'nom' ] . " | Âge : " . $user [ 'âge' ] . "</br>" ;
@@ -48,7 +48,7 @@ try {
    echo "Nombre d'utilisateurs mis à jour : " . $stmt -> rowCount () . "</br></br>" ;
 
    print ( "EXERCICE 4</br></br>" );
-   $sql = " SUPPRIMER FROM utilisateurs OÙ id = ? " ;
+   $sql = " DELETE FROM utilisateurs WHERE id = ? " ;
    $stmt = $pdo -> préparer ( $sql );
    $stmt -> exécuter ([ 1 ]);
 
