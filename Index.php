@@ -66,3 +66,33 @@ switch ($note) {
         echo "T'as raté ta vie !";
         break;
 }
+
+// le kiff
+
+$camarade = 5;
+
+switch ($camarade) {
+    case 0:
+        echo "Mehdi";
+        break;
+
+    case 1:
+        echo "Esteban pokeworld";
+        break;
+
+    case 2:
+        echo "Alex";
+        break;
+
+    case 3:
+        echo "Aaron";
+         break;
+
+    case 4:
+        echo "Naylis";
+        break;
+
+    default:
+        echo "Sabrina";
+        break;
+}
