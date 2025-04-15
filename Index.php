@@ -43,7 +43,7 @@ class Voiture extends Vehicule {
 
 // Classe enfant qui hérite de Vehicule
 class Moto extends Vehicule {
-    private $cylindree;
+    private $cylindre;
     
 // Faire les méthodes
 }
