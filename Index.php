@@ -1,59 +1,62 @@
 <?php
 
-$host = "localhost" ;
-$dbname = "Solo Leveling" ;
-$username = "root" ;
-$password = "" ;
-$charset = "utf8mb4" ;
+$host = "localhost";
+$dbname = "TP1";
+$username = "root";
+$password = "";
+$charset = "utf8mb4";
 
-$dsn = "mysql:host= $host ;dbname= $dbname ;charset= $charset " ;
+$dsn = "mysql:host= $host;dbname= $dbname;charset= $charset ";
 
 $options = [
-   PDO ::ATTR_ERRMODE => PDO ::ERRMODE_EXCEPTION,
-   PDO ::ATTR_DEFAULT_FETCH_MODE => PDO ::FETCH_ASSOC,
-   PDO ::ATTR_EMULATE_PREPARES => false
+   PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Gestion des erreurs avec exceptions
+   PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Mode de récupération par défaut: tableau associatif
+   PDO::ATTR_EMULATE_PREPARES => false // Désactiver l'émulation des requêtes préparées
 ];
 
 try {
-   $pdo = new PDO ( $dsn , $username , $password , $options );
-   echo "Connexion à la base de données réussie ! </br></br>" ;
+   $pdo = new PDO ($dsn, $username, $password, $options);
+} catch ( PDOException $e ) {
+   echo "Erreur de connexion à la base de données : " . $e->getMessage();
+}
 
-   print ( "EXERCICE 1</br></br>" );
-   // Réinsertion de l'âge dans l'insertion
-   $sql = " INSERT INTO users (nom, age) VALUES (?, ?) " ;
-   $stmt = $pdo -> préparer ( $sql );
-   $stmt -> execute ([ "Dupré" , 35 ]);
+echo "Connexion à la base de données réussie ! </br></br>";
 
-   echo "Nouvel utilisateur inséré avec l'ID : " . $pdo -> lastInsertId () . "</br></br>" ;
+// Exercice 1 : 
+// Réinsertion de l'âge dans l'insertion
+$sql = "INSERT INTO users (nom, age) VALUES (?, ?)";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(["Lény", 19]);
 
-   print ( "EXERCICE 2</br></br>" );
-   echo "Utilisateurs de plus de 30 ans :</br>" ;
+echo "Nouvel utilisateur inséré avec l'ID : " . $pdo->lastInsertId() . "</br></br>";
 
-   $sql = " SELECT * DE utilisateurs WHERE âge > 30 " ;
-   $stmt = $pdo -> requête ( $sql );
-   $users = $stmt -> fetchAll ();
+// Exercice 2 : 
+echo "Utilisateurs de plus de 30 ans :</br>";
+
+$sql = "SELECT * FROM utilisateurs WHERE âge > 30";
+$stmt = $pdo->query($sql);
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
    foreach ( $users as $user ) {
-       echo "Nom : " . $user [ 'nom' ] . " | Âge : " . $user [ 'âge' ] . "</br>" ;
+       echo "Nom : " . $user ['nom'] . " | Âge : " . $user ['âge'] . "</br>";
 }
+echo "</br>";
 
-   echo "</br>" ;
+// Exercice 3 : 
+// Mise à jour de l'âge de l'utilisateur
+$sql = "UPDATE utilisateurs SET age = ? WHERE id = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([20, 1]);
 
-   print ( "EXERCICE 3</br></br>" );
-   // Mise à jour de l'âge de l'utilisateur
-   $sql = " UPDATE utilisateurs SET age = ? WHERE id = ? " ;
-   $stmt = $pdo -> préparer ( $sql );
-   $stmt -> exécuter ([ 40 , 1 ]);
+echo "Nombre d'utilisateurs mis à jour : " . $stmt->rowCount() . "</br></br>";
 
-   echo "Nombre d'utilisateurs mis à jour : " . $stmt -> rowCount () . "</br></br>" ;
+// Exercice 4 : 
+$sql = "DELETE FROM utilisateurs WHERE id = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->executer([1]);
 
-   print ( "EXERCICE 4</br></br>" );
-   $sql = " DELETE FROM utilisateurs WHERE id = ? " ;
-   $stmt = $pdo -> préparer ( $sql );
-   $stmt -> exécuter ([ 1 ]);
+echo "Nombre d'utilisateurs supprimés : " . $stmt->rowCount() . "</br></br>";
 
-   echo "Nombre d'utilisateurs supprimés : " . $stmt -> rowCount () . "</br></br>" ;
+$sql->close();
 
-} catch ( PDOException $e ) {
-   echo "Erreur de connexion à la base de données : " . $e -> getMessage ();
-}
+$pdo = null;
