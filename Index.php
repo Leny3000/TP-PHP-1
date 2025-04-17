@@ -63,8 +63,8 @@ $Lény->sePresenter();
 $Lény->estMajeur();
 
 // Modification des propriétés
-$Lény->setAge(21);
-$Lény->setNom("Ahnou");
-$Lény->setPrenom("Mehdi");
+$Lény->setAge(16);
+$Lény->setNom("Archer");
+$Lény->setPrenom("Gaël");
 $Lény->sePresenter();
 $Lény->estMajeur();
