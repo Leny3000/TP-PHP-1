@@ -12,11 +12,11 @@ class Vehicule {
     }
     
     public function getInfos() {
-        return "Marque : $this->marque, Modèle : $this->modele, Année : $this->annee";
+        echo "Marque : $this->marque, Modèle : $this->modele, Année : $this->annee";
     }
     
     public function demarrer() {
-        return "Le véhicule démarre.";
+        echo "Le véhicule démarre.";
     }
 }
 
@@ -34,14 +34,13 @@ class Voiture extends Vehicule {
         $this->typeCarburant = $typeCarburant;
     }
     
-    // Surcharge de la méthode getInfos()
     public function getInfos() {
-        return parent::getInfos() . ", Portes : $this->nombrePortes, Carburant : $this->typeCarburant";
+        echo parent::getInfos() . ", Portes : $this->nombrePortes, Carburant : $this->typeCarburant </br>";
     }
     
     // Méthode spécifique
     public function klaxonner() {
-        return "Bip bip !";
+        echo "Bip bip ! </br>";
     }
 }
 
@@ -63,7 +62,7 @@ class Moto extends Vehicule {
     }
 
     public function getInfos() {
-        return parent::getInfos() . ", Cylindrée : $this->cylindre cc";
+        echo parent::getInfos() . ", Cylindrée : $this->cylindre cc";
     }
 }
 
