@@ -9,7 +9,7 @@ class Personne {
     // Constructeur
     public function __construct($nom, $prenom, $age)
     {
-        echo 'Voici le constructeur !';
+        echo 'Voici le constructeur ! </br>';
         $this -> setNom($nom);
         $this -> setPrenom($prenom);
         $this -> setAge($age);
@@ -31,31 +31,40 @@ class Personne {
 
     // Setters (mutateurs)
 
-   public function setNom() {
+   public function setNom($nom) {
       $this->nom = $nom;
    }
 
-   public function setPrenom() {
+   public function setPrenom($prenom) {
       $this->prenom = $prenom;
    }
 
-   public function setAge() {
-      $this->nom = $nom;
+   public function setAge($age) {
+      $this->age = $age;
    }
    
     // Méthodes
     public function sePresenter() {
-      
+      echo "Je m'appelle " . $this->prenom . " " . $this->nom . " et j'ai " . $this->age . " ans.</br>";
     }
     
     public function estMajeur() {
-
+      if ($this->age >= 18) {
+         echo "Je suis majeur. </br>";
+      }
+      else {
+         echo "Je suis mineur. </br>";
+      }
     }
-
+}
 // Utilisation de la classe
-
+$Lény = new Personne("Guillard", "Lény", 19);
+$Lény->sePresenter();
+$Lény->estMajeur();
 
 // Modification des propriétés
-}
-
-$Lény = new Personne("Guillard", "Lény", 19);
+$Lény->setAge(21);
+$Lény->setNom("Ahnou");
+$Lény->setPrenom("Mehdi");
+$Lény->sePresenter();
+$Lény->estMajeur();
