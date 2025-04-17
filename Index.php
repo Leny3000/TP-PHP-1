@@ -61,6 +61,10 @@ class Moto extends Vehicule {
         $this->cylindre = $cylindre;
     }
 
+    public function faireRoueArriere() {
+        echo "La moto fais une roue arrière ! </br>";
+    }
+
     public function getInfos() {
         echo parent::getInfos() . ", Cylindrée : $this->cylindre cc";
     }
@@ -75,4 +79,4 @@ $voiture->klaxonner();
 $moto = new Moto("Yamaha", "MT-07", 2022, 689);
 $moto->getInfos();
 $moto->demarrer();
-$moto->klaxonner();
+$moto->faireRoueArriere();
