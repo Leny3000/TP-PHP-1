@@ -50,6 +50,15 @@ class Moto extends Vehicule {
     private $cylindre;
     
 // Faire les méthodes
+
+public function getCylindre() {
+
+}
+
+public function setCylindre() {
+   
+}
+
 }
 
 // Utilisation des classes
