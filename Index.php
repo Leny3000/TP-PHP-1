@@ -69,7 +69,10 @@ class Moto extends Vehicule {
 // Utilisation des classes
 $voiture = new Voiture("Renault", "Clio", 2020, 5, "Essence");
 $voiture->getInfos();
+$voiture->demarrer();
 $voiture->klaxonner();
 
 $moto = new Moto("Yamaha", "MT-07", 2022, 689);
 $moto->getInfos();
+$moto->demarrer();
+$moto->klaxonner();
