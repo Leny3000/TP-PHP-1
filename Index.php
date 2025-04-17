@@ -35,7 +35,7 @@ echo "Utilisateurs de plus de 30 ans :</br>";
 
 $sql = "SELECT * FROM users WHERE age > 30";
 $stmt = $pdo->query($sql);
-$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC); 
 
    foreach ($users as $user) {
        echo "Nom : " . $user ['nom'] . " | Âge : " . $user ['age'] . "</br>";
