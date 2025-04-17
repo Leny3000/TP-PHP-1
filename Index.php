@@ -6,6 +6,9 @@ class Vehicule {
     protected $annee;
     
     public function __construct($marque, $modele, $annee) {
+      $this -> marque;
+      $this -> modele;
+      $this -> annee;
     }
     
     public function getInfos() {
@@ -24,6 +27,7 @@ class Voiture extends Vehicule {
     
     public function __construct($nombrePortes, $typeCarburant) {
         // Appel du constructeur parent
+        parent::__construct($marque, $modele, $annee);
         
         
         // Initialisation des propriétés spécifiques
